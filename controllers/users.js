@@ -149,7 +149,8 @@ exports.signUp = function( req, res ){
                                         params.username = newUser.username;
                                         helpers.users.addActivity('new_user', params, req.socketio);
 
-                                        helpers.email.singUp([ helpers.users.nameFormat( req.body.first_name, req.body.last_name ) + '<' + req.body.email + '>' ], vsprintf(res.lingua.content.sing_up.email.subject,[helpers.users.nameFormat( req.body.first_name, req.body.last_name )]), res.lingua.content.sing_up.email.body, res.locals.siteUrl + '/user/activate/' + newUser.active_token );
+                                        helpers.email.singUp([{ name: helpers.users.nameFormat( req.body.first_name, req.body.last_name ), email: req.body.email }], vsprintf(res.lingua.content.sing_up.email.subject,[helpers.users.nameFormat( req.body.first_name, req.body.last_name )]), res.lingua.content.sing_up.email.body, res.locals.siteUrl + '/user/activate/' + newUser.active_token );
+
                                         res.redirect('/user/activate');
                                     }
 
